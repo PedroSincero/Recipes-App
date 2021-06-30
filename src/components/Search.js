@@ -1,29 +1,32 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import AppContext from '../context/AppContext';
 
 export default function Search() {
-  const handleRadio = ({ value }) => {
-    console.log(value);
-  };
+  const { setSearch, setRadio, handleButton } = useContext(AppContext);
 
   return (
     <Form>
       <Form.Group data-testid="search-top-btn">
-        <Form.Control type="text" data-testid="search-input" />
+        <Form.Control
+          type="text"
+          data-testid="search-input"
+          onChange={ ({ target: { value } }) => setSearch(value) }
+        />
         <Form.Check
           type="radio"
           data-testid="ingredient-search-radio"
           label="Ingrediente"
           name="grup-1"
-          value="Ingrediente-Pesquisa"
-          onClick={ ({ target }) => console.log('ingrediente') || handleRadio(target) }
+          value="ingredient"
+          onClick={ ({ target: { value } }) => setRadio(value) }
         />
         <Form.Check
           type="radio"
           data-testid="name-search-radio"
           label="Nome"
-          value="Nome-Usuário"
-          onClick={ ({ target }) => console.log('nome') || handleRadio(target) }
+          value="name"
+          onClick={ ({ target: { value } }) => setRadio(value) }
           name="grup-1"
         />
         <Form.Check
@@ -31,10 +34,15 @@ export default function Search() {
           data-testid="first-letter-search-radio"
           label="Primeira letra"
           name="grup-1"
-          value="Primeira-Letra"
-          onClick={ ({ target }) => console.log('primeira-letra') || handleRadio(target) }
+          value="firstLetter"
+          onClick={ ({ target: { value } }) => setRadio(value) }
         />
-        <Button data-testid="exec-search-btn">Search</Button>
+        <Button
+          data-testid="exec-search-btn"
+          onClick={ () => handleButton() }
+        >
+          Search
+        </Button>
       </Form.Group>
     </Form>
   );
