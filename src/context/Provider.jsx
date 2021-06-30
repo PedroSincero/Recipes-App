@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
+// import { Alert } from 'react-bootstrap';
 
 function Provider({ children }) {
   const [data, setData] = useState([]);
@@ -24,6 +25,7 @@ function Provider({ children }) {
     }
     if (radio === 'firstLetter' && search.length > 1) {
       console.log('deu certo');
+      // return (<Alert variant="danger"> alerta vermelho</Alert>);
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
     console.log(endpoint);
