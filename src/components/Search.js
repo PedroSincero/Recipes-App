@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import AppContext from '../context/AppContext';
+import AlertDismissible from './Alert';
 
 export default function Search() {
-  const { setSearch, setRadio, handleButton } = useContext(AppContext);
+  const { setSearch, setRadio, handleButton, onAlert } = useContext(AppContext);
 
   return (
     <Form>
@@ -44,6 +45,7 @@ export default function Search() {
           Search
         </Button>
       </Form.Group>
+      {!onAlert === true ? null : (<AlertDismissible />)}
     </Form>
   );
 }

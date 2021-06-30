@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 // import { Alert } from 'react-bootstrap';
+import AlertDismissible from '../components/Alert';
 
 function Provider({ children }) {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
+  const [onAlert, onSetAlert] = useState(false);
 
   const handleButton = () => {
     let endpoint = '';
@@ -25,8 +27,9 @@ function Provider({ children }) {
     }
     if (radio === 'firstLetter' && search.length > 1) {
       console.log('deu certo');
-      // return (<Alert variant="danger"> alerta vermelho</Alert>);
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      // return (<AlertDismissible />);
+      // alert('Sua busca deve conter somente 1 (um) caracter');
+      onSetAlert(true);
     }
     console.log(endpoint);
     getAPI(endpoint);
@@ -40,6 +43,7 @@ function Provider({ children }) {
     setRadio,
     handleButton,
     data,
+    onAlert,
   };
 
   return (
