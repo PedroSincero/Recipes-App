@@ -12,7 +12,7 @@ function App() {
         type="image/svg+xml"
         data={ rockGlass }
       >
-        Glasss
+        Glassss
       </object>
     </div>
   );
