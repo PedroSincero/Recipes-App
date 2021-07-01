@@ -1,10 +1,49 @@
 import React, { useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 export default function Search() {
-  const { setSearch, setRadio, handleButton } = useContext(AppContext);
+  const { setSearch, setRadio, handleButton, handleDrink } = useContext(AppContext);
+  // const routes = [{ food: 'comidas' }, { food: 'bebidas' }];
+  // routes.find(((route) => route.food === match.params.id));
+  // if(match.params.id === 'comidas') {
+  //   <Button
+  //   data-testid="exec-search-btn"
+  //   onClick={ () => handleComidas() }
+  // >
+  // }
+  // if(match.params.id === 'bebidas') {
+  //   <Button
+  //   data-testid="exec-search-btn"
+  //   onClick={ () => handleBebidas() }
+  // >
+  // }
+  const location = useLocation();
+  const routes = () => {
+    if (location.pathname === '/comidas') {
+      return (
+        <Button
+          data-testid="exec-search-btn"
+          onClick={ () => handleButton() }
+        >
+          Search
+        </Button>
+      );
+    }
+    if (location.pathname === '/bebidas') {
+      return (
+        <Button
+          data-testid="exec-search-btn"
+          onClick={ () => handleDrink() }
+        >
+          Search
+        </Button>
+      );
+    }
+  };
 
+  // console.log(!location === '/comidas' ? null : console.log('comidinha'));
   return (
     <Form>
       <Form.Group data-testid="search-top-btn">
@@ -37,13 +76,16 @@ export default function Search() {
           value="firstLetter"
           onClick={ ({ target: { value } }) => setRadio(value) }
         />
-        <Button
+        {routes()}
+        {/* <Button
           data-testid="exec-search-btn"
           onClick={ () => handleButton() }
         >
           Search
-        </Button>
+        </Button> */}
       </Form.Group>
     </Form>
   );
 }
+
+// Agradecimentos a Daniel Roberto Turma 10 Tribo B, pelo auxilio na logica do useLocation
