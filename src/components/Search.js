@@ -4,31 +4,59 @@ import { useLocation } from 'react-router-dom';
 import AppContext from '../context/AppContext';
 
 export default function Search() {
-  const { setSearch, setRadio, handleButton, handleDrink } = useContext(AppContext);
+  const { setSearch, setRadio, handleButton, handleDrink, data } = useContext(AppContext);
   const location = useLocation();
   const routes = () => {
     if (location.pathname === '/comidas') {
       return (
-        <Button
-          data-testid="exec-search-btn"
-          onClick={ () => handleButton() }
-        >
-          Search
-        </Button>
+        <>
+          <Button
+            data-testid="exec-search-btn"
+            onClick={ () => handleButton() }
+          >
+            Search
+          </Button>
+          <div>
+            {data.map((info, index) => (
+              <li key={ index } data-testid={ `${index}-recipe-card` }>
+                <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
+                <img
+                  src={ info.strMealThumb }
+                  alt={ info.strMeal }
+                  data-testid={ `${index}-card-img` }
+                />
+              </li>
+            ))}
+          </div>
+        </>
       );
     }
     if (location.pathname === '/bebidas') {
       return (
-        <Button
-          data-testid="exec-search-btn"
-          onClick={ () => handleDrink() }
-        >
-          Search
-        </Button>
+        <>
+          <Button
+            data-testid="exec-search-btn"
+            onClick={ () => handleDrink() }
+          >
+            Search
+          </Button>
+          <div>
+            {data.map((info, index) => (
+              <li key={ index } data-testid={ `${index}-recipe-card` }>
+                <p data-testid={ `${index}-card-name` }>{info.strDrink}</p>
+                <img
+                  src={ info.strDrinkThumb }
+                  alt={ info.strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+              </li>
+            ))}
+          </div>
+        </>
       );
     }
   };
-
+  console.log(data);
   return (
     <Form>
       <Form.Group data-testid="search-top-btn">
