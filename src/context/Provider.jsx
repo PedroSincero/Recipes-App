@@ -18,6 +18,9 @@ function Provider({ children }) {
       // setData(results);
     };
     let endpoint = '';
+    if (search === '') {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'); // eslint-disable-line no-alert
+    }
     if (radio === 'firstLetter' && search.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
     }
