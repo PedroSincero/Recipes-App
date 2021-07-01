@@ -23,7 +23,7 @@ function Provider({ children }) {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`;
     }
     if (radio === 'firstLetter' && search.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
     }
     getAPI(endpoint);
   };
