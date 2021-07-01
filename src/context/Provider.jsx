@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
@@ -7,6 +7,9 @@ function Provider({ children }) {
   const [search, setSearch] = useState('');
   const [radio, setRadio] = useState('');
 
+  useEffect(() => {
+
+  }, []);
   const handleButton = () => {
     const getFood = async (endpoints) => {
       const limit = 12;
@@ -14,27 +17,33 @@ function Provider({ children }) {
         .then((response) => response
           .json())
         .then(({ meals }) => setData(meals.slice(0, limit)))
-        .catch((error) => console.log(error));
-      // setData(results);
+        .catch(() => setData(null));
+    };
+    const alertSearch = async () => {
+      await getFood();
+      if (data === null) {
+        alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'); // eslint-disable-line no-alert
+      }
     };
     let endpoint = '';
-    if (search === '') {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'); // eslint-disable-line no-alert
-    }
+
     if (radio === 'firstLetter' && search.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter'); // eslint-disable-line no-alert
     }
     if (radio === 'ingredient') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`;
       getFood(endpoint);
+      alertSearch();
     }
     if (radio === 'name') {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`;
       getFood(endpoint);
+      alertSearch();
     }
     if (radio === 'firstLetter' && search.length <= 1) {
       endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`;
       getFood(endpoint);
+      alertSearch();
     }
   };
 
