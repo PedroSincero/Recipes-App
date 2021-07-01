@@ -5,20 +5,6 @@ import AppContext from '../context/AppContext';
 
 export default function Search() {
   const { setSearch, setRadio, handleButton, handleDrink } = useContext(AppContext);
-  // const routes = [{ food: 'comidas' }, { food: 'bebidas' }];
-  // routes.find(((route) => route.food === match.params.id));
-  // if(match.params.id === 'comidas') {
-  //   <Button
-  //   data-testid="exec-search-btn"
-  //   onClick={ () => handleComidas() }
-  // >
-  // }
-  // if(match.params.id === 'bebidas') {
-  //   <Button
-  //   data-testid="exec-search-btn"
-  //   onClick={ () => handleBebidas() }
-  // >
-  // }
   const location = useLocation();
   const routes = () => {
     if (location.pathname === '/comidas') {
@@ -43,7 +29,6 @@ export default function Search() {
     }
   };
 
-  // console.log(!location === '/comidas' ? null : console.log('comidinha'));
   return (
     <Form>
       <Form.Group data-testid="search-top-btn">
@@ -77,12 +62,6 @@ export default function Search() {
           onClick={ ({ target: { value } }) => setRadio(value) }
         />
         {routes()}
-        {/* <Button
-          data-testid="exec-search-btn"
-          onClick={ () => handleButton() }
-        >
-          Search
-        </Button> */}
       </Form.Group>
     </Form>
   );
