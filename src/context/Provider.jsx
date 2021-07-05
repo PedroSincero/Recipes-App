@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AppContext from './AppContext';
 
 function Provider({ children }) {
-
   const [foodsAPI, setfoodsAPI] = useState('');
   const [drinksAPI, setDrinksAPI] = useState('');
   const [search, setSearch] = useState('');
@@ -13,7 +12,7 @@ function Provider({ children }) {
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const [user, setUser] = useState([]);
-  
+
   useEffect(() => {
     const getFood = async (endpoints) => {
       const limit = 12;
@@ -102,7 +101,6 @@ function Provider({ children }) {
     user,
     setUser,
   };
-
 
   return (
     <AppContext.Provider value={ contextValue }>{children}</AppContext.Provider>
