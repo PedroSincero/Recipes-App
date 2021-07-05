@@ -3,7 +3,7 @@ import React from 'react';
 export default function RecipesDetails() {
   return (
     <div>
-      <h1>Tela de detalhes de uma receita</h1>
+      <h1>Tela de detalhes de uma receitaa</h1>
       <div>
         <h1 data-testid="recipe-title">{}</h1>
         <img src="" alt="" data-testid="recipe-photo" />
