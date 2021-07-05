@@ -41,8 +41,15 @@ function Provider({ children }) {
   }, [drinkEndpoint]);
 
   const handleFood = async () => {
+    if (search === '') {
+      return (
+        global.alert('por favor, digite alguma coisa na busca')
+      );
+    }
     if (radio === 'firstLetter' && search.length > 1) {
-      global.alert('Sua busca deve conter somente 1 (um) caracter');
+      return (
+        global.alert('Sua busca deve conter somente 1 (um) caracter')
+      );
     }
     if (radio === 'ingredient') {
       setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`);
@@ -56,6 +63,11 @@ function Provider({ children }) {
   };
 
   const handleDrink = async () => {
+    if (search === '') {
+      return (
+        global.alert('por favor, digite alguma coisa na busca')
+      );
+    }
     if (radio === 'firstLetter' && search.length > 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     }

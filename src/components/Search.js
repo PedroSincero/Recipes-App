@@ -24,40 +24,42 @@ export default function Search() {
   };
 
   return (
-    <Form>
-      <Form.Group data-testid="search-top-btn">
-        <Form.Control
-          type="text"
-          data-testid="search-input"
-          onChange={ ({ target: { value } }) => setSearch(value) }
-        />
-        <Form.Check
-          type="radio"
-          data-testid="ingredient-search-radio"
-          label="Ingrediente"
-          name="grup-1"
-          value="ingredient"
-          onClick={ ({ target: { value } }) => setRadio(value) }
-        />
-        <Form.Check
-          type="radio"
-          data-testid="name-search-radio"
-          label="Nome"
-          value="name"
-          onClick={ ({ target: { value } }) => setRadio(value) }
-          name="grup-1"
-        />
-        <Form.Check
-          type="radio"
-          data-testid="first-letter-search-radio"
-          label="Primeira letra"
-          name="grup-1"
-          value="firstLetter"
-          onClick={ ({ target: { value } }) => setRadio(value) }
-        />
-        {routes()}
-      </Form.Group>
-    </Form>
+    <div>
+      <Form>
+        <Form.Group data-testid="search-top-btn">
+          <Form.Control
+            type="text"
+            data-testid="search-input"
+            onChange={ ({ target: { value } }) => setSearch(value) }
+          />
+          <Form.Check
+            type="radio"
+            data-testid="ingredient-search-radio"
+            label="Ingrediente"
+            name="grup-1"
+            value="ingredient"
+            onClick={ ({ target: { value } }) => setRadio(value) }
+          />
+          <Form.Check
+            type="radio"
+            data-testid="name-search-radio"
+            label="Nome"
+            value="name"
+            onClick={ ({ target: { value } }) => setRadio(value) }
+            name="grup-1"
+          />
+          <Form.Check
+            type="radio"
+            data-testid="first-letter-search-radio"
+            label="Primeira letra"
+            name="grup-1"
+            value="firstLetter"
+            onClick={ ({ target: { value } }) => setRadio(value) }
+          />
+        </Form.Group>
+      </Form>
+      {routes()}
+    </div>
   );
 }
 
