@@ -2,7 +2,6 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
-import Search from '../../components/Search';
 
 export default function RecipesPrincipal() {
   const location = useLocation();
@@ -22,7 +21,6 @@ export default function RecipesPrincipal() {
   return (
     <>
       {nameTitle()}
-      <Search />
       <h1>Tela principal de receitas</h1>
       <Menu />
     </>
