@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../../components/Header';
+import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
 import Search from '../../components/Search';
 
 export default function RecipesPrincipal() {
   return (
     <>
-      <Header title="Comidas" />
+      <HeaderWithButton title="Comidas" />
       <Search />
       <h1>Tela principal de receitas</h1>
       <Menu />
