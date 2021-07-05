@@ -24,7 +24,11 @@ function App() {
       <Route exact path="/perfil" component={ Perfil } />
 
       <Route exact path="/comidas" component={ RecipesPrincipal } />
-      <Route exact path="/comidas/:id" component={ RecipesDetails } />
+      <Route
+        exact
+        path="/comidas/:id"
+        render={ (props) => <RecipesDetails { ...props } /> }
+      />
       <Route exact path="/comidas/:id/in-progress" component={ RecipesProgress } />
 
       <Route exact path="/bebidas" component={ RecipesPrincipal } />
