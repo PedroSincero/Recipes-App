@@ -26,7 +26,7 @@ export default function Search() {
   return (
     <div>
       <Form>
-        <Form.Group data-testid="search-top-btn">
+        <Form.Group>
           <Form.Control
             type="text"
             data-testid="search-input"
