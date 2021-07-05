@@ -12,6 +12,8 @@ function Provider({ children }) {
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
   const [user, setUser] = useState([]);
+  const [idFood, setIdFood] = useState('');
+  const [idDrinks, setIdDrinks] = useState('');
 
   useEffect(() => {
     const getFood = async (endpoints) => {
@@ -21,6 +23,9 @@ function Provider({ children }) {
         return (
           global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
         );
+      }
+      if (meals.length <= 1) {
+        setIdFood(meals[0].idMeal);
       }
       const result = meals.slice(0, limit);
       setfoodsAPI(result);
@@ -36,6 +41,9 @@ function Provider({ children }) {
         return (
           global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
         );
+      }
+      if (drinks.length <= 1) {
+        setIdDrinks(drinks[0].idDrink);
       }
       const result = drinks.slice(0, limit);
       setDrinksAPI(result);
@@ -100,6 +108,8 @@ function Provider({ children }) {
     setPassword,
     user,
     setUser,
+    idFood,
+    idDrinks,
   };
 
   return (
