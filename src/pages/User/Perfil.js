@@ -7,7 +7,7 @@ export default function Perfil() {
   const history = useHistory();
   return (
     <>
-      <Header />
+      <Header title="Perfil" />
       <h2 data-testid="profile-email">Insira aqui o userEmail</h2>
       <div className="d-flex flex-column gap-2">
         <button
