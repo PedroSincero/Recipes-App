@@ -5,9 +5,9 @@ import Menu from '../../components/Menu';
 
 export default function Perfil() {
   const history = useHistory();
+  const user = JSON.parse(localStorage.getItem('user'));
 
   function getEmail() {
-    const user = JSON.parse(localStorage.getItem('user'));
     return (
       <p
         type="text"
@@ -21,7 +21,7 @@ export default function Perfil() {
   return (
     <>
       <Header title="Perfil" />
-      {getEmail()}
+      {user && getEmail()}
       <div className="d-flex flex-column gap-2">
         <button
           data-testid="profile-done-btn"
