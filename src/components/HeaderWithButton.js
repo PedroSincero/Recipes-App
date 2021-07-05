@@ -18,7 +18,7 @@ export default function HeaderWithButton({ title }) {
           <img data-testid="search-top-btn" src={ searchIcon } alt="Search" />
         </button>
       </header>
-      {/* <Search /> */}
+      <Search />
     </>
   );
 }
