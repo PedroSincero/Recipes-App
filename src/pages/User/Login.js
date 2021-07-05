@@ -30,11 +30,17 @@ export default function Login() {
     return setPassword(validPass);
   }
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   localStorage.setItem('mealsToken', 1);
+  //   localStorage.setItem('cocktailsToken', 1);
+  //   localStorage.setItem('user', JSON.stringify({ email: user }));
+  // }, [user]);
+
+  function setLocalStorage() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email: user }));
-  }, [user]);
+  }
 
   return (
 
@@ -69,6 +75,7 @@ export default function Login() {
           disabled={ !email + !password }
           value={ user }
           onChange={ (e) => setUser(e.target.value) }
+          onClick={ setLocalStorage }
         >
           Entrar
         </Button>
