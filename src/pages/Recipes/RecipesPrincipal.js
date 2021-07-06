@@ -7,13 +7,27 @@ import AppContext from '../../context/AppContext';
 export default function RecipesPrincipal() {
   const location = useLocation();
   const { setFoodEndPoint,
-    setDrinkEndpoint, foodsAPI, drinksAPI, categories } = useContext(AppContext);
+    setDrinkEndpoint,
+    foodsAPI, drinksAPI, category, categoryDrink } = useContext(AppContext);
+  const filterCategory = (param) => {
+    const map = param.map(({ strCategory }, index) => (
+      <button
+        key={ index }
+        type="button"
+        data-testid={ `${strCategory}-category-filter` }
+      >
+        { strCategory }
+      </button>
+    ));
+    return map;
+  };
   const nameTitle = () => {
     if (location.pathname === '/bebidas') {
       setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       return (
         <>
           <HeaderWithButton title="Bebidas" />
+          {categoryDrink && filterCategory(categoryDrink)}
           {drinksAPI && drinksAPI.map((info, index) => (
             <li key={ index } data-testid={ `${index}-recipe-card` }>
               <p data-testid={ `${index}-card-name` }>{info.strDrink}</p>
@@ -29,11 +43,11 @@ export default function RecipesPrincipal() {
     }
     if (location.pathname === '/comidas') {
       setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      console.log(categories);
-      // foodsAPI && foodsAPI.filter((info) => console.log(info.strCategory));
+      console.log(category);
       return (
         <>
           <HeaderWithButton title="Comidas" />
+          {category && filterCategory(category)}
           {foodsAPI && foodsAPI.map((info, index) => (
             <li key={ index } data-testid={ `${index}-recipe-card` }>
               <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
@@ -44,7 +58,6 @@ export default function RecipesPrincipal() {
               />
             </li>
           ))}
-          {/* {foodsAPI && foodsAPI.map((info, index) => info.strCategory.filter(()))} */}
         </>
       );
     }
