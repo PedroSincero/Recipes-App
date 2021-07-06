@@ -35,18 +35,6 @@ export default function BtnDrinks() {
         Search
       </Button>
       {redirect()}
-      {/* <div>
-        {drinksAPI && drinksAPI.map((info, index) => (
-          <li key={ index } data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>{info.strDrink}</p>
-            <img
-              src={ info.strDrinkThumb }
-              alt={ info.strDrink }
-              data-testid={ `${index}-card-img` }
-            />
-          </li>
-        ))}
-      </div> */}
     </>
   );
 }

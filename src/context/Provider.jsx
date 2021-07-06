@@ -110,6 +110,8 @@ function Provider({ children }) {
     setUser,
     idFood,
     idDrinks,
+    setFoodEndPoint,
+    setDrinkEndpoint,
   };
 
   return (
