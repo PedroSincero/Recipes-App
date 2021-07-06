@@ -14,7 +14,8 @@ function Provider({ children }) {
   const [user, setUser] = useState([]);
   const [idFood, setIdFood] = useState('');
   const [idDrinks, setIdDrinks] = useState('');
-
+  const [category, setCategories] = useState();
+  const [categoryDrink, setCategoriesDrink] = useState();
   useEffect(() => {
     const getFood = async (endpoints) => {
       const limit = 12;
@@ -50,6 +51,23 @@ function Provider({ children }) {
     };
     getDrink(drinkEndpoint);
   }, [drinkEndpoint]);
+
+  const getCategories = async () => {
+    const limit = 5;
+    const meals = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list').then((r) => r.json());
+    const result = meals.meals.slice(0, limit);
+    setCategories(result);
+  };
+  const getCategoriesDrink = async () => {
+    const limit = 5;
+    const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list').then((r) => r.json());
+    const result = drinks.slice(0, limit);
+    setCategoriesDrink(result);
+  };
+  useEffect(() => {
+    getCategories();
+    getCategoriesDrink();
+  }, []);
 
   const handleFood = async () => {
     if (search === '') {
@@ -112,6 +130,8 @@ function Provider({ children }) {
     idDrinks,
     setFoodEndPoint,
     setDrinkEndpoint,
+    category,
+    categoryDrink,
   };
 
   return (
