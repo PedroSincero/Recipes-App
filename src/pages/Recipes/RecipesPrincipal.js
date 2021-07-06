@@ -1,13 +1,26 @@
 import React from 'react';
-import Header from '../../components/Header';
+import { useLocation } from 'react-router-dom';
+import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
-import Search from '../../components/Search';
 
 export default function RecipesPrincipal() {
+  const location = useLocation();
+  const nameTitle = () => {
+    if (location.pathname === '/bebidas') {
+      return (
+        <HeaderWithButton title="Bebidas" />
+      );
+    }
+    if (location.pathname === '/comidas') {
+      return (
+        <HeaderWithButton title="Comidas" />
+      );
+    }
+  };
+
   return (
     <>
-      <Header title="Comidas" />
-      <Search />
+      {nameTitle()}
       <h1>Tela principal de receitas</h1>
       <Menu />
     </>

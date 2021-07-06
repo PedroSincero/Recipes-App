@@ -1,16 +1,66 @@
-import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Form } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
+import AppContext from '../context/AppContext';
+import BtnFoods from './BtnFoods';
+import BtnDrinks from './BtnDrinks';
 
 export default function Search() {
+  const { setSearch,
+    setRadio } = useContext(AppContext);
+  const location = useLocation();
+
+  const routes = () => {
+    if (location.pathname === '/bebidas') {
+      return (
+        <BtnDrinks />
+      );
+    }
+    if (location.pathname === '/comidas') {
+      return (
+        <BtnFoods />
+      );
+    }
+  };
+
   return (
-    <Form>
-      <Form.Group data-testid="search-top-btn">
-        <Form.Control type="text" data-testid="search-input" />
-        <Form.Check type="radio" data-testid="ingredient-search-radio" />
-        <Form.Check type="radio" data-testid="name-search-radio" />
-        <Form.Check type="radio" data-testid="first-letter-search-radio" />
-        <Button data-testid="exec-search-btn">Search</Button>
-      </Form.Group>
-    </Form>
+    <div>
+      <Form>
+        <Form.Group>
+          <Form.Control
+            type="text"
+            data-testid="search-input"
+            onChange={ ({ target: { value } }) => setSearch(value) }
+          />
+          <Form.Check
+            type="radio"
+            data-testid="ingredient-search-radio"
+            label="Ingrediente"
+            name="grup-1"
+            value="ingredient"
+            onClick={ ({ target: { value } }) => setRadio(value) }
+          />
+          <Form.Check
+            type="radio"
+            data-testid="name-search-radio"
+            label="Nome"
+            value="name"
+            onClick={ ({ target: { value } }) => setRadio(value) }
+            name="grup-1"
+          />
+          <Form.Check
+            type="radio"
+            data-testid="first-letter-search-radio"
+            label="Primeira letra"
+            name="grup-1"
+            value="firstLetter"
+            onClick={ ({ target: { value } }) => setRadio(value) }
+          />
+        </Form.Group>
+      </Form>
+      {routes()}
+    </div>
   );
 }
+
+// Agradecimentos a Daniel Roberto Turma 10 Tribo B, pelo auxilio na logica do useLocation

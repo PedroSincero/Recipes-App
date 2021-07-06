@@ -5,10 +5,23 @@ import Menu from '../../components/Menu';
 
 export default function Perfil() {
   const history = useHistory();
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  function getEmail() {
+    return (
+      <p
+        type="text"
+        data-testid="profile-email"
+      >
+        { user.email }
+      </p>
+    );
+  }
+
   return (
     <>
       <Header title="Perfil" />
-      <h2 data-testid="profile-email">Insira aqui o userEmail</h2>
+      {user && getEmail()}
       <div className="d-flex flex-column gap-2">
         <button
           data-testid="profile-done-btn"
