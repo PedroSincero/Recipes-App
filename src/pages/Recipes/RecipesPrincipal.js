@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
 import AppContext from '../../context/AppContext';
@@ -29,34 +29,38 @@ export default function RecipesPrincipal() {
           <HeaderWithButton title="Bebidas" />
           {categoryDrink && filterCategory(categoryDrink)}
           {drinksAPI && drinksAPI.map((info, index) => (
-            <li key={ index } data-testid={ `${index}-recipe-card` }>
-              <p data-testid={ `${index}-card-name` }>{info.strDrink}</p>
-              <img
-                src={ info.strDrinkThumb }
-                alt={ info.strDrink }
-                data-testid={ `${index}-card-img` }
-              />
-            </li>
+            <Link to={ `bebidas/${info.idDrink}` } key={ index }>
+              <li data-testid={ `${index}-recipe-card` }>
+                <p data-testid={ `${index}-card-name` }>{info.strDrink}</p>
+                <img
+                  src={ info.strDrinkThumb }
+                  alt={ info.strDrink }
+                  data-testid={ `${index}-card-img` }
+                />
+              </li>
+            </Link>
           ))}
         </>
       );
     }
     if (location.pathname === '/comidas') {
       setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-      console.log(category);
+      console.log(foodsAPI);
       return (
         <>
           <HeaderWithButton title="Comidas" />
           {category && filterCategory(category)}
           {foodsAPI && foodsAPI.map((info, index) => (
-            <li key={ index } data-testid={ `${index}-recipe-card` }>
-              <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
-              <img
-                src={ info.strMealThumb }
-                alt={ info.strMeal }
-                data-testid={ `${index}-card-img` }
-              />
-            </li>
+            <Link to={ `comidas/${info.idMeal}` } key={ index }>
+              <li key={ index } data-testid={ `${index}-recipe-card` }>
+                <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
+                <img
+                  src={ info.strMealThumb }
+                  alt={ info.strMeal }
+                  data-testid={ `${index}-card-img` }
+                />
+              </li>
+            </Link>
           ))}
         </>
       );
