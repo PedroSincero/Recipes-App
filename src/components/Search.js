@@ -6,7 +6,7 @@ import BtnFoods from './BtnFoods';
 import BtnDrinks from './BtnDrinks';
 
 export default function Search() {
-  const { setSearch,
+  const { setSearch, search,
     setRadio } = useContext(AppContext);
   const location = useLocation();
 
@@ -30,6 +30,7 @@ export default function Search() {
           <Form.Control
             type="text"
             data-testid="search-input"
+            value={ search }
             onChange={ ({ target: { value } }) => setSearch(value) }
           />
           <Form.Check

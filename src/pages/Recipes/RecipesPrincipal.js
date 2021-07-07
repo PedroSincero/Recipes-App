@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
@@ -8,12 +8,16 @@ export default function RecipesPrincipal() {
   const location = useLocation();
   const { setFoodEndPoint,
     setDrinkEndpoint,
-    foodsAPI, drinksAPI, category, categoryDrink, setfoodsAPI } = useContext(AppContext);
+    foodsAPI, drinksAPI, category, categoryDrink, foodEndpoint } = useContext(AppContext);
 
-  // Req 28;
-  // const handleFilter = (str) => {
-  //   setFoodEndPoint(`www.themealdb.com/api/json/v1/1/filter.php?c=${str}`);
-  // };
+  useEffect(() => {
+    if (location.pathname === '/bebidas') {
+      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    }
+    if (location.pathname === '/comidas') {
+      setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+  }, []);
 
   const filterCategory = (param) => {
     const map = param.map(({ strCategory }, index) => (
@@ -21,16 +25,16 @@ export default function RecipesPrincipal() {
         key={ index }
         type="button"
         data-testid={ `${strCategory}-category-filter` }
-        onClick={ () => setFoodEndPoint(`www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`) }
+        onClick={ () => (location.pathname === '/comidas' ? setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`) : setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`)) }
       >
         { strCategory }
       </button>
     ));
+    console.log(foodEndpoint);
     return map;
   };
   const nameTitle = () => {
     if (location.pathname === '/bebidas') {
-      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       return (
         <>
           <HeaderWithButton title="Bebidas" />
@@ -51,7 +55,6 @@ export default function RecipesPrincipal() {
       );
     }
     if (location.pathname === '/comidas') {
-      setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       return (
         <>
           <HeaderWithButton title="Comidas" />
