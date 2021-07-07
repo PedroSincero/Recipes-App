@@ -132,6 +132,8 @@ function Provider({ children }) {
     setDrinkEndpoint,
     category,
     categoryDrink,
+    setfoodsAPI,
+    foodEndpoint,
   };
 
   return (

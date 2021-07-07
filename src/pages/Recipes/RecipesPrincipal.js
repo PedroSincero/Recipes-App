@@ -8,13 +8,20 @@ export default function RecipesPrincipal() {
   const location = useLocation();
   const { setFoodEndPoint,
     setDrinkEndpoint,
-    foodsAPI, drinksAPI, category, categoryDrink } = useContext(AppContext);
+    foodsAPI, drinksAPI, category, categoryDrink, setfoodsAPI } = useContext(AppContext);
+
+  // Req 28;
+  // const handleFilter = (str) => {
+  //   setFoodEndPoint(`www.themealdb.com/api/json/v1/1/filter.php?c=${str}`);
+  // };
+
   const filterCategory = (param) => {
     const map = param.map(({ strCategory }, index) => (
       <button
         key={ index }
         type="button"
         data-testid={ `${strCategory}-category-filter` }
+        onClick={ () => setFoodEndPoint(`www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`) }
       >
         { strCategory }
       </button>
@@ -65,7 +72,7 @@ export default function RecipesPrincipal() {
       );
     }
   };
-
+  // console.log(drinksAPI);
   return (
     <>
       <h1>Tela principal de receitas</h1>
