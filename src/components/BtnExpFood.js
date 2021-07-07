@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
 
 export default function BtnExpFood() {
+  const [food, setFood] = useState();
+
   async function fetchAPI() {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
       .then((data) => data.json())
       .then((e) => e.meals[0].idMeal);
-    return console.log(response);
+    return response;
   }
+
+  useEffect(() => {
+    fetchAPI().then((resp) => setFood(resp));
+  }, []);
 
   const history = useHistory();
   return (
@@ -36,8 +42,7 @@ export default function BtnExpFood() {
         size="lg"
         block
         data-testid="explore-surprise"
-        // onClick={ () => history.push(`comidas/${fetchAPI}`) }
-        onClick={ fetchAPI }
+        onClick={ () => history.push(`/comidas/${food}`) }
       >
         Me Surpreenda!
       </Button>
