@@ -8,7 +8,7 @@ export default function RecipesPrincipal() {
   const location = useLocation();
   const { setFoodEndPoint,
     setDrinkEndpoint,
-    foodsAPI, drinksAPI, category, categoryDrink } = useContext(AppContext);
+    foodsAPI, drinksAPI, category, categoryDrink, foodEndpoint } = useContext(AppContext);
 
   useEffect(() => {
     if (location.pathname === '/bebidas') {
@@ -25,10 +25,12 @@ export default function RecipesPrincipal() {
         key={ index }
         type="button"
         data-testid={ `${strCategory}-category-filter` }
+        onClick={ () => (location.pathname === '/comidas' ? setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`) : setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`)) }
       >
         { strCategory }
       </button>
     ));
+    console.log(foodEndpoint);
     return map;
   };
   const nameTitle = () => {
@@ -73,7 +75,7 @@ export default function RecipesPrincipal() {
       );
     }
   };
-
+  // console.log(drinksAPI);
   return (
     <>
       <h1>Tela principal de receitas</h1>

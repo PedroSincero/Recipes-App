@@ -27,7 +27,7 @@ function Provider({ children }) {
         );
       }
       if (meals.length <= 1) {
-        return (setIdFood(meals[0].idMeal));
+        setIdFood(meals[0].idMeal);
       }
       const result = meals.slice(0, limit);
       setfoodsAPI(result);
@@ -128,6 +128,8 @@ function Provider({ children }) {
     setDrinkEndpoint,
     category,
     categoryDrink,
+    setfoodsAPI,
+    foodEndpoint,
     doneRecipesList,
     setDoneRecipesList,
     setSearch,
