@@ -17,7 +17,7 @@ export default function RecipesPrincipal() {
     if (location.pathname === '/comidas') {
       setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     }
-  }, []);
+  }, [location, setDrinkEndpoint, setFoodEndPoint]);
 
   const filterCategory = (param) => {
     const map = param.map(({ strCategory }, index) => (
