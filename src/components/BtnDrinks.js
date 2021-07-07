@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import AppContext from '../context/AppContext';
-import '../img.css';
 
 export default function BtnDrinks() {
   const { handleDrink, drinksAPI, idDrinks } = useContext(AppContext);
