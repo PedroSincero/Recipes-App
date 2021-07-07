@@ -110,7 +110,6 @@ function Provider({ children }) {
   };
 
   const contextValue = {
-    // inputTest,
     radio,
     setRadio,
     handleFood,
