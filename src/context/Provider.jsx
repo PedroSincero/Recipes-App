@@ -109,12 +109,7 @@ function Provider({ children }) {
     }
   };
 
-  // const inputTest = (value) => {z
-  //   setSearch(value);
-  // };
-
   const contextValue = {
-    // inputTest,
     radio,
     setRadio,
     handleFood,
