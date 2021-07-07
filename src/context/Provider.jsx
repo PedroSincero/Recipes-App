@@ -26,7 +26,7 @@ function Provider({ children }) {
         );
       }
       if (meals.length <= 1) {
-        setIdFood(meals[0].idMeal);
+        return (setIdFood(meals[0].idMeal));
       }
       const result = meals.slice(0, limit);
       setfoodsAPI(result);
@@ -65,16 +65,12 @@ function Provider({ children }) {
     setCategoriesDrink(result);
   };
   useEffect(() => {
+    console.log('apareci 1 vez');
     getCategories();
     getCategoriesDrink();
   }, []);
 
   const handleFood = async () => {
-    if (search === '') {
-      return (
-        global.alert('por favor, digite alguma coisa na busca')
-      );
-    }
     if (radio === 'firstLetter' && search.length > 1) {
       return (
         global.alert('Sua busca deve conter somente 1 (um) caracter')
@@ -104,6 +100,7 @@ function Provider({ children }) {
       setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`);
     }
     if (radio === 'name') {
+      console.log(search);
       setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`);
     }
     if (radio === 'firstLetter' && search.length <= 1) {
@@ -111,9 +108,12 @@ function Provider({ children }) {
     }
   };
 
+  // const inputTest = (value) => {z
+  //   setSearch(value);
+  // };
+
   const contextValue = {
-    search,
-    setSearch,
+    // inputTest,
     radio,
     setRadio,
     handleFood,
@@ -132,6 +132,7 @@ function Provider({ children }) {
     setDrinkEndpoint,
     category,
     categoryDrink,
+    setSearch,
   };
 
   return (
