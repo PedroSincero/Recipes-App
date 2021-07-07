@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
@@ -9,6 +9,16 @@ export default function RecipesPrincipal() {
   const { setFoodEndPoint,
     setDrinkEndpoint,
     foodsAPI, drinksAPI, category, categoryDrink } = useContext(AppContext);
+
+  useEffect(() => {
+    if (location.pathname === '/bebidas') {
+      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    }
+    if (location.pathname === '/comidas') {
+      setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    }
+  }, [location, setDrinkEndpoint, setFoodEndPoint]);
+
   const filterCategory = (param) => {
     const map = param.map(({ strCategory }, index) => (
       <button
@@ -23,7 +33,6 @@ export default function RecipesPrincipal() {
   };
   const nameTitle = () => {
     if (location.pathname === '/bebidas') {
-      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
       return (
         <>
           <HeaderWithButton title="Bebidas" />
@@ -44,7 +53,6 @@ export default function RecipesPrincipal() {
       );
     }
     if (location.pathname === '/comidas') {
-      setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
       return (
         <>
           <HeaderWithButton title="Comidas" />
