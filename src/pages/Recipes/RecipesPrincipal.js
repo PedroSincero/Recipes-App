@@ -39,6 +39,7 @@ export default function RecipesPrincipal() {
         <>
           <HeaderWithButton title="Bebidas" />
           {categoryDrink && filterCategory(categoryDrink)}
+          <button type="button" data-testid="All-category-filter" onClick={ () => setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') }>All</button>
           {drinksAPI && drinksAPI.map((info, index) => (
             <Link to={ `bebidas/${info.idDrink}` } key={ index }>
               <li data-testid={ `${index}-recipe-card` }>
@@ -59,6 +60,7 @@ export default function RecipesPrincipal() {
         <>
           <HeaderWithButton title="Comidas" />
           {category && filterCategory(category)}
+          <button type="button" data-testid="All-category-filter" onClick={ () => setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=') }>All</button>
           {foodsAPI && foodsAPI.map((info, index) => (
             <Link to={ `comidas/${info.idMeal}` } key={ index }>
               <li key={ index } data-testid={ `${index}-recipe-card` }>
