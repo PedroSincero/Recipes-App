@@ -16,6 +16,7 @@ export default function BtnFoods() {
           <li key={ index } data-testid={ `${index}-recipe-card` }>
             <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
             <img
+              className="comidas-bebidas"
               src={ info.strMealThumb }
               alt={ info.strMeal }
               data-testid={ `${index}-card-img` }
@@ -34,19 +35,6 @@ export default function BtnFoods() {
         Search
       </Button>
       {redirecionar()}
-      {/* <div>
-        {foodsAPI && foodsAPI.map((info, index) => (
-          <li key={ index } data-testid={ `${index}-recipe-card` }>
-            <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
-            <img
-              src={ info.strMealThumb }
-              alt={ info.strMeal }
-              data-testid={ `${index}-card-img` }
-            />
-          </li>
-        ))}
-        { console.log(foodsAPI)}
-      </div> */}
     </>
   );
 }
