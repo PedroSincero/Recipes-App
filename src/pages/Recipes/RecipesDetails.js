@@ -1,6 +1,27 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import AppContext from '../../context/AppContext';
 
-export default function RecipesDetails() {
+export default function RecipesDetails({ match: { params: { id } } }) {
+  const location = useLocation();
+  const { setDetailsRecipe } = useContext(AppContext);
+  useEffect(() => {
+    if (location.pathname === `/bebidas/${id}`) {
+      const getDetails = async (detailID) => {
+        const result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${detailID}`).then((r) => r.json());
+        setDetailsRecipe(result);
+      };
+      getDetails(id);
+    }
+    if (location.pathname === `/comidas/${id}`) {
+      const getDetails = async (detailID) => {
+        const result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${detailID}`).then((r) => r.json());
+        setDetailsRecipe(result);
+      };
+      getDetails(id);
+    }
+  }, [id, location, setDetailsRecipe]);
   return (
     <div>
       <h1>Tela de detalhes de uma receitaa</h1>
@@ -22,3 +43,11 @@ export default function RecipesDetails() {
     </div>
   );
 }
+
+RecipesDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
