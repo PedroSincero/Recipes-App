@@ -68,7 +68,6 @@ function Provider({ children }) {
     setCategoriesDrink(result);
   };
   useEffect(() => {
-    console.log('apareci 1 vez');
     getCategories();
     getCategoriesDrink();
   }, []);
