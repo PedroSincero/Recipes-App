@@ -2,15 +2,16 @@ import React, { useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
-import './CSS/doneRecipesCard.css';
+import './CSS/favoriteRecipesCard.css';
 
-export default function DoneRecipesCard({ recipe, index }) {
+export default function FavoriteRecipesCard({ recipe, index }) {
   const history = useHistory();
   const [copied, setCopied] = useState(false);
-  const INDEX_TAG_MAX = 1;
   const FOUR_SECONDS = 4000;
+
   return (
     <section>
       {
@@ -38,19 +39,6 @@ export default function DoneRecipesCard({ recipe, index }) {
               >
                 {`${recipe.area} - ${recipe.category}`}
               </p>
-              <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
-              {recipe.tags.map((tag, indexTag) => {
-                if (indexTag <= INDEX_TAG_MAX) {
-                  return (
-                    <p
-                      key={ `${index}-${tag}` }
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                    >
-                      {tag}
-                    </p>);
-                }
-                return '';
-              })}
               <CopyToClipboard
                 text={ `http://localhost:3000/${recipe.type}s/${recipe.id}` }
                 onCopy={ () => {
@@ -70,6 +58,13 @@ export default function DoneRecipesCard({ recipe, index }) {
                   />
                 </button>
               </CopyToClipboard>
+              <input
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                type="image"
+                src={ blackHeartIcon }
+                alt="unfavorite"
+                onClick={ () => console.log('desfavoritou') }
+              />
               {
                 copied === index
                   ? <span style={ { color: 'red' } }>Link copiado!</span>
@@ -98,7 +93,6 @@ export default function DoneRecipesCard({ recipe, index }) {
               <p data-testid={ `${index}-horizontal-top-text` }>
                 {`Alcoholic: ${recipe.alcoholicOrNot}`}
               </p>
-              <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
               <CopyToClipboard
                 text={ `http://localhost:3000/${recipe.type}s/${recipe.id}` }
                 onCopy={ () => {
@@ -118,6 +112,13 @@ export default function DoneRecipesCard({ recipe, index }) {
                   />
                 </button>
               </CopyToClipboard>
+              <input
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                type="image"
+                src={ blackHeartIcon }
+                alt="unfavorite"
+                onClick={ () => console.log('desfavoritou') }
+              />
               {
                 copied === index
                   ? <span style={ { color: 'red' } }>Link copiado!</span>
@@ -130,7 +131,7 @@ export default function DoneRecipesCard({ recipe, index }) {
   );
 }
 
-DoneRecipesCard.propTypes = {
+FavoriteRecipesCard.propTypes = {
   recipe: PropTypes.shape({
     type: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,

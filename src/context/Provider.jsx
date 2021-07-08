@@ -17,6 +17,7 @@ function Provider({ children }) {
   const [category, setCategories] = useState();
   const [categoryDrink, setCategoriesDrink] = useState();
   const [doneRecipesList, setDoneRecipesList] = useState([]);
+  const [favoriteRecipesList, setFavoriteRecipesList] = useState([]);
   useEffect(() => {
     const getFood = async (endpoints) => {
       const limit = 12;
@@ -132,6 +133,8 @@ function Provider({ children }) {
     foodEndpoint,
     doneRecipesList,
     setDoneRecipesList,
+    favoriteRecipesList,
+    setFavoriteRecipesList,
     setSearch,
   };
 
