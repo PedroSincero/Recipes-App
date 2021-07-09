@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
@@ -9,6 +9,7 @@ export default function RecipesPrincipal() {
   const { setFoodEndPoint,
     setDrinkEndpoint,
     foodsAPI, drinksAPI, category, categoryDrink, foodEndpoint } = useContext(AppContext);
+  const [status, setStatus] = useState(true);
 
   useEffect(() => {
     if (location.pathname === '/bebidas') {
@@ -19,18 +20,36 @@ export default function RecipesPrincipal() {
     }
   }, [location, setDrinkEndpoint, setFoodEndPoint]);
 
+  const toggle = (strCategory) => {
+    if (status === true) {
+      if (location.pathname === '/comidas') {
+        setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`);
+      }
+      if (location.pathname === '/bebidas') {
+        setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`);
+      }
+      setStatus(false);
+      console.log('true', status);
+    }
+    if (status === false) {
+      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      setStatus(true);
+      console.log('false', status);
+    }
+  };
+
   const filterCategory = (param) => {
     const map = param.map(({ strCategory }, index) => (
       <button
         key={ index }
         type="button"
         data-testid={ `${strCategory}-category-filter` }
-        onClick={ () => (location.pathname === '/comidas' ? setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`) : setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`)) }
+        // onClick={ () => (location.pathname === '/comidas' ? setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`) : setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`)) }
+        onClick={ () => toggle(strCategory) }
       >
         { strCategory }
       </button>
     ));
-    console.log(foodEndpoint);
     return map;
   };
   const nameTitle = () => {
