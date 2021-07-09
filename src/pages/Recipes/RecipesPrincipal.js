@@ -32,7 +32,12 @@ export default function RecipesPrincipal() {
       console.log('true', status);
     }
     if (status === false) {
-      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      if (location.pathname === '/comidas') {
+        setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      }
+      if (location.pathname === '/bebidas') {
+        setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      }
       setStatus(true);
       console.log('false', status);
     }
