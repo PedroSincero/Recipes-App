@@ -1,7 +1,7 @@
 .btn-start {
-  position: fixed;
   bottom: 0;
   right: 0;
+  position: fixed;
   border: solid 3px #73ad21;
   width: 300px;
 }
