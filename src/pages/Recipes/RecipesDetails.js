@@ -92,7 +92,8 @@ export default function RecipesDetails({ match: { params: { id } } }) {
           data-testid="start-recipe-btn"
           className="btn-start"
           onClick={ () => (location.pathname === `/bebidas/${id}`
-            ? history.push(`/bebidas/${id}/in-progress`) : history.push(`/comidas/${id}/in-progress`)) }
+            ? history.push(`/bebidas/${id}/in-progress`)
+            : history.push(`/comidas/${id}/in-progress`)) }
         >
           Iniciar Receita
         </button>
