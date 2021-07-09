@@ -18,6 +18,7 @@ function Provider({ children }) {
   const [categoryDrink, setCategoriesDrink] = useState();
   const [doneRecipesList, setDoneRecipesList] = useState([]);
   const [favoriteRecipesList, setFavoriteRecipesList] = useState([]);
+  const [detailsRecipe, setDetailsRecipe] = useState([]);
   useEffect(() => {
     const getFood = async (endpoints) => {
       const limit = 12;
@@ -67,7 +68,6 @@ function Provider({ children }) {
     setCategoriesDrink(result);
   };
   useEffect(() => {
-    console.log('apareci 1 vez');
     getCategories();
     getCategoriesDrink();
   }, []);
@@ -136,6 +136,8 @@ function Provider({ children }) {
     favoriteRecipesList,
     setFavoriteRecipesList,
     setSearch,
+    detailsRecipe,
+    setDetailsRecipe,
   };
 
   return (
