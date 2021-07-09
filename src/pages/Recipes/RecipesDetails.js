@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import AppContext from '../../context/AppContext';
-import './test.css';
+import '../../styles/RecipesDetails.css';
 
 export default function RecipesDetails({ match: { params: { id } } }) {
   const location = useLocation();
@@ -86,7 +86,13 @@ export default function RecipesDetails({ match: { params: { id } } }) {
         <button type="button" data-testid="favorite-btn">favoritar</button>
         <button type="button" data-testid="recipe-category">categoria</button>
         <p data-testid="instructions"> Instruções</p>
-        <button type="button" data-testid="start-recipe-btn" className="test-btn">Iniciar Receita</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="btn-start"
+        >
+          Iniciar Receita
+        </button>
       </div>
     </div>
   );
