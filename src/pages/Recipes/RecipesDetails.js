@@ -30,7 +30,6 @@ export default function RecipesDetails({ match: { params: { id } } }) {
   }, [id, location, setDetailsRecipe, setFoodEndPoint, setDrinkEndpoint]);
 
   const drinkDetails = () => {
-    // console.log('detailsRecipe[0]', detailsRecipe[0]);
     console.log('foodsAPI', foodsAPI);
     const limit = 15;
     const result = [];
