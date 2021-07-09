@@ -1,10 +1,12 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import AppContext from '../../context/AppContext';
+import '../../styles/RecipesDetails.css';
 
 export default function RecipesDetails({ match: { params: { id } } }) {
   const location = useLocation();
+  const history = useHistory();
   const { setDetailsRecipe,
     detailsRecipe,
     setDrinkEndpoint,
@@ -85,7 +87,16 @@ export default function RecipesDetails({ match: { params: { id } } }) {
         <button type="button" data-testid="favorite-btn">favoritar</button>
         <button type="button" data-testid="recipe-category">categoria</button>
         <p data-testid="instructions"> Instruções</p>
-        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="btn-start"
+          onClick={ () => (location.pathname === `/bebidas/${id}`
+            ? history.push(`/bebidas/${id}/in-progress`)
+            : history.push(`/comidas/${id}/in-progress`)) }
+        >
+          Iniciar Receita
+        </button>
       </div>
     </div>
   );
