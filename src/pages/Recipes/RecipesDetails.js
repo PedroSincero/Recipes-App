@@ -116,6 +116,7 @@ export default function RecipesDetails({ match: { params: { id } } }) {
         {
           copied && <span style={ { color: 'red' } }>Link copiado!</span>
         }
+        <button type="button" data-testid="favorite-btn">favoritar</button>
         <button type="button" data-testid="recipe-category">categoria</button>
         <p data-testid="instructions"> Instruções</p>
         <button
