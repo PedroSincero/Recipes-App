@@ -61,7 +61,13 @@ export default function RecipesPrincipal() {
         <>
           <HeaderWithButton title="Bebidas" />
           {categoryDrink && filterCategory(categoryDrink)}
-          <button type="button" data-testid="All-category-filter" onClick={ () => setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') }>All</button>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => setDrinkEndpoint(endpointDrinkAll) }
+          >
+            All
+          </button>
           {drinksAPI && drinksAPI.map((info, index) => (
             <Link to={ `bebidas/${info.idDrink}` } key={ index }>
               <li data-testid={ `${index}-recipe-card` }>
