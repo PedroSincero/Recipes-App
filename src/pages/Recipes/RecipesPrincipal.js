@@ -8,12 +8,12 @@ export default function RecipesPrincipal() {
   const location = useLocation();
   const { setFoodEndPoint,
     setDrinkEndpoint,
-    foodsAPI, drinksAPI, category, categoryDrink, foodEndpoint } = useContext(AppContext);
+    foodsAPI, drinksAPI, category, categoryDrink } = useContext(AppContext);
   const [status, setStatus] = useState(true);
-
+  const endpointAll = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   useEffect(() => {
     if (location.pathname === '/bebidas') {
-      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      setDrinkEndpoint(endpointAll);
     }
     if (location.pathname === '/comidas') {
       setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
@@ -32,7 +32,7 @@ export default function RecipesPrincipal() {
       console.log('true', status);
     }
     if (status === false) {
-      setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      setDrinkEndpoint(endpointAll);
       setStatus(true);
       console.log('false', status);
     }
@@ -58,7 +58,13 @@ export default function RecipesPrincipal() {
         <>
           <HeaderWithButton title="Bebidas" />
           {categoryDrink && filterCategory(categoryDrink)}
-          <button type="button" data-testid="All-category-filter" onClick={ () => setDrinkEndpoint('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=') }>All</button>
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ () => setDrinkEndpoint(endpointAll) }
+          >
+            All
+          </button>
           {drinksAPI && drinksAPI.map((info, index) => (
             <Link to={ `bebidas/${info.idDrink}` } key={ index }>
               <li data-testid={ `${index}-recipe-card` }>
