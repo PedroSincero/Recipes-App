@@ -9,32 +9,36 @@ export default function RecipesPrincipal() {
   const { setFoodEndPoint,
     setDrinkEndpoint,
     foodsAPI, drinksAPI, category, categoryDrink } = useContext(AppContext);
-  const [status, setStatus] = useState(true);
-  const endpointAll = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const [status, setStatus] = useState('');
+  const endpointDrinkAll = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const endpointFoodAll = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   useEffect(() => {
     if (location.pathname === '/bebidas') {
-      setDrinkEndpoint(endpointAll);
+      setDrinkEndpoint(endpointDrinkAll);
     }
     if (location.pathname === '/comidas') {
-      setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      setFoodEndPoint(endpointFoodAll);
     }
   }, [location, setDrinkEndpoint, setFoodEndPoint]);
 
   const toggle = (strCategory) => {
-    if (status === true) {
+    if (!status || status !== strCategory) {
       if (location.pathname === '/comidas') {
         setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`);
       }
       if (location.pathname === '/bebidas') {
         setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`);
       }
-      setStatus(false);
-      console.log('true', status);
+      setStatus(strCategory);
     }
-    if (status === false) {
-      setDrinkEndpoint(endpointAll);
-      setStatus(true);
-      console.log('false', status);
+    if (status === strCategory) {
+      if (location.pathname === '/comidas') {
+        setFoodEndPoint(endpointFoodAll);
+      }
+      if (location.pathname === '/bebidas') {
+        setDrinkEndpoint(endpointDrinkAll);
+      }
+      setStatus('');
     }
   };
 
@@ -44,7 +48,6 @@ export default function RecipesPrincipal() {
         key={ index }
         type="button"
         data-testid={ `${strCategory}-category-filter` }
-        // onClick={ () => (location.pathname === '/comidas' ? setFoodEndPoint(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${strCategory}`) : setDrinkEndpoint(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${strCategory}`)) }
         onClick={ () => toggle(strCategory) }
       >
         { strCategory }
@@ -61,7 +64,7 @@ export default function RecipesPrincipal() {
           <button
             type="button"
             data-testid="All-category-filter"
-            onClick={ () => setDrinkEndpoint(endpointAll) }
+            onClick={ () => setDrinkEndpoint(endpointDrinkAll) }
           >
             All
           </button>
@@ -102,7 +105,6 @@ export default function RecipesPrincipal() {
       );
     }
   };
-  // console.log(drinksAPI);
   return (
     <>
       <h1>Tela principal de receitas</h1>
