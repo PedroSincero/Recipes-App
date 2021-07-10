@@ -75,7 +75,6 @@ export default function RecipesProgress({ match: { params: { id } } }) {
       </>
     );
   };
-  console.log('detailsRecipe', detailsRecipe);
   return (
     <>
       <h1>Tela de receita em progresso</h1>
