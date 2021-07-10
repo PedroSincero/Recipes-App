@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useHistory } from 'react-router';
 import PropTypes from 'prop-types';
@@ -6,11 +6,21 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 import './CSS/favoriteRecipesCard.css';
+import AppContext from '../context/AppContext';
 
 export default function FavoriteRecipesCard({ recipe, index }) {
   const history = useHistory();
+  const { setFavoriteRecipesList } = useContext(AppContext);
   const [copied, setCopied] = useState(false);
   const FOUR_SECONDS = 4000;
+
+  async function handleUnfavorite(recipeToUnfavorite) {
+    const favoriteRecipes = await JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const updatedFavoriteRecipes = favoriteRecipes
+      .filter((element) => element.id !== recipeToUnfavorite.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(updatedFavoriteRecipes));
+    setFavoriteRecipesList(updatedFavoriteRecipes);
+  }
 
   return (
     <section>
@@ -63,7 +73,7 @@ export default function FavoriteRecipesCard({ recipe, index }) {
                 type="image"
                 src={ blackHeartIcon }
                 alt="unfavorite"
-                onClick={ () => console.log('desfavoritou') }
+                onClick={ () => handleUnfavorite(recipe) }
               />
               {
                 copied === index
@@ -117,7 +127,7 @@ export default function FavoriteRecipesCard({ recipe, index }) {
                 type="image"
                 src={ blackHeartIcon }
                 alt="unfavorite"
-                onClick={ () => console.log('desfavoritou') }
+                onClick={ () => handleUnfavorite(recipe) }
               />
               {
                 copied === index
@@ -138,12 +148,8 @@ FavoriteRecipesCard.propTypes = {
     image: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     alcoholicOrNot: PropTypes.string.isRequired,
-    doneDate: PropTypes.string.isRequired,
-    tags: PropTypes.shape({
-      map: PropTypes.func.isRequired,
-    }).isRequired,
   }).isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
