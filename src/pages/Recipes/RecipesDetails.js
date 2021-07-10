@@ -1,12 +1,16 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useHistory } from 'react-router-dom';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import shareIcon from '../../images/shareIcon.svg';
 import AppContext from '../../context/AppContext';
 import '../../styles/RecipesDetails.css';
 
 export default function RecipesDetails({ match: { params: { id } } }) {
   const location = useLocation();
   const history = useHistory();
+  const [copied, setCopied] = useState(false);
+  const FOUR_SECONDS = 4000;
   const { setDetailsRecipe,
     detailsRecipe,
     setDrinkEndpoint,
@@ -83,8 +87,29 @@ export default function RecipesDetails({ match: { params: { id } } }) {
       <h1>Tela de detalhes de uma receitaa</h1>
       <div>
         {detailsRecipe && drinkDetails()}
-        <button type="button" data-testid="share-btn">compartilhar</button>
-        <button type="button" data-testid="favorite-btn">favoritar</button>
+        {/* <button type="button" data-testid="share-btn">compartilhar</button> */}
+        <CopyToClipboard
+          text={ `http://localhost:3000${location.pathname}` }
+          onCopy={ () => {
+            setCopied(true);
+            setTimeout(() => setCopied(''), FOUR_SECONDS);
+          } }
+        >
+          <button
+            data-testid="share-btn"
+            type="button"
+            src={ shareIcon }
+          >
+            <input
+              type="image"
+              src={ shareIcon }
+              alt="share"
+            />
+          </button>
+        </CopyToClipboard>
+        {
+          copied && <span style={ { color: 'red' } }>Link copiado!</span>
+        }
         <button type="button" data-testid="recipe-category">categoria</button>
         <p data-testid="instructions"> Instruções</p>
         <button
