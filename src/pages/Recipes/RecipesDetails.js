@@ -36,7 +36,6 @@ export default function RecipesDetails({ match: { params: { id } } }) {
   }, [id, location, setDetailsRecipe, setFoodEndPoint, setDrinkEndpoint]);
 
   const drinkDetails = () => {
-    console.log('foodsAPI', foodsAPI);
     const limit = 15;
     const result = [];
     const NUMBER_SIX = 6;
@@ -50,16 +49,23 @@ export default function RecipesDetails({ match: { params: { id } } }) {
       }
       // console.log(detailsRecipe[0][`strIngredient${index}`], detailsRecipe[0][`strMeasure${index}`]);
     }
+    console.log('detailsRecipe[0]', detailsRecipe[0]);
+    const { strDrink,
+      strMeal,
+      strDrinkThumb, strCategory, strMealThumb, strInstructions } = detailsRecipe[0];
+    const pathnameBebidas = location.pathname === `/bebidas/${id}`;
     return (
       <>
-        <h1 data-testid="recipe-title">{detailsRecipe[0].strDrink}</h1>
-        <p data-testid="recipe-category">{detailsRecipe[0].strCategory}</p>
+        <h1 data-testid="recipe-title">{pathnameBebidas ? strDrink : strMeal}</h1>
+        <p data-testid="recipe-category">
+          {pathnameBebidas ? `${strCategory} Alcoholic` : strCategory}
+        </p>
         <img
-          src={ detailsRecipe[0].strDrinkThumb }
-          alt={ detailsRecipe[0].strDrink }
+          src={ pathnameBebidas ? strDrinkThumb : strMealThumb }
+          alt="Thumbnail"
           data-testid="recipe-photo"
         />
-        <p data-testid="instructions">{detailsRecipe[0].strInstructions}</p>
+        <p data-testid="instructions">{strInstructions}</p>
         <iframe src="https://youtu.be/7atZfX85nd4" data-testid="video" title=" video teste" />
         {result.map((info, index) => (
           <li
@@ -72,7 +78,7 @@ export default function RecipesDetails({ match: { params: { id } } }) {
         {foodsAPI && foodsAPI.slice(0, NUMBER_SIX).map((info, index) => (
           <div key={ index } data-testid={ `${index}-recomendation-card` }>
             <img
-              src={ location.pathname === `/bebidas/${id}`
+              src={ pathnameBebidas
                 ? info.strMealThumb : info.strDrinkThumb }
               alt="Thumbnail"
             />
