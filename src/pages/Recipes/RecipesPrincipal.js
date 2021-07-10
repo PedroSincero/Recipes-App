@@ -99,7 +99,6 @@ export default function RecipesPrincipal() {
       );
     }
   };
-  // console.log(drinksAPI);
   return (
     <>
       <h1>Tela principal de receitas</h1>
