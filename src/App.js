@@ -15,7 +15,7 @@ import ExploreArea from './pages/Explore/ExploreArea';
 import ExploreDrinksFood from './pages/Explore/ExploreDrinksFood';
 import ExploreIngredients from './pages/Explore/ExploreIngredients';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/custon.scss';
 
 function App() {
   return (
