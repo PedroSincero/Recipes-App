@@ -6,6 +6,6 @@
   width: 300px;
 }
 
-.recommendation {
+.recommendation, .image-details {
   width: 200px;
 }
