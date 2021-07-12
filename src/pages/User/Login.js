@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import AppContext from '../../context/AppContext';
+import logo2 from '../../images/logo2.png';
+import '../../styles/login.css';
 
 export default function Login() {
   const {
@@ -49,43 +51,48 @@ export default function Login() {
   }
 
   return (
+    <div className="body">
+      <img src={ logo2 } alt="logo" />
+      <div className="form">
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label className="text">Email</Form.Label>
+            <Form.Control
+              type="email"
+              data-testid="email-input"
+              placeholder="Digite seu Email"
+              onChange={ ({ target }) => handleEmail(target.value) }
+            />
 
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          type="email"
-          data-testid="email-input"
-          placeholder="Digite seu Email"
-          onChange={ ({ target }) => handleEmail(target.value) }
-        />
+          </Form.Group>
 
-      </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label className="text">Password</Form.Label>
+            <Form.Control
+              type="password"
+              data-testid="password-input"
+              placeholder="Password"
+              onChange={ ({ target }) => handlePassword(target.value) }
+            />
 
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          data-testid="password-input"
-          placeholder="Password"
-          onChange={ ({ target }) => handlePassword(target.value) }
-        />
+          </Form.Group>
 
-      </Form.Group>
-
-      <Link to="/comidas">
-        <Button
-          variant="primary"
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !email + !password }
-          value={ user }
-          onChange={ (e) => setUser(e.target.value) }
-          onClick={ setLocalStorage }
-        >
-          Entrar
-        </Button>
-      </Link>
-    </Form>
+          <Link to="/comidas">
+            <Button
+              variant="secondary"
+              className="button btn-block"
+              type="button"
+              data-testid="login-submit-btn"
+              disabled={ !email + !password }
+              value={ user }
+              onChange={ (e) => setUser(e.target.value) }
+              onClick={ setLocalStorage }
+            >
+              Entrar
+            </Button>
+          </Link>
+        </Form>
+      </div>
+    </div>
   );
 }
