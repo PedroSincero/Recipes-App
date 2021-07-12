@@ -105,7 +105,7 @@ const drinkDetails = (pathnameBebidas, detailsRecipe) => {
 };
 
 const checkDoneRecipes = async (detailID, setHaveButton) => {
-  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const haveDone = doneRecipes.some((recipe) => recipe.id === detailID);
   if (haveDone) {
     return setHaveButton(false);
@@ -113,7 +113,7 @@ const checkDoneRecipes = async (detailID, setHaveButton) => {
   setHaveButton(true);
 };
 const shareFavorites = async (favoriteID, setStatus) => {
-  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const someFavorite = favorite.some((info) => info.id === favoriteID);
   if (someFavorite) {
     return setStatus(true);
@@ -126,7 +126,7 @@ const clickFavorite = ({ status, setStatus, id }, detailsRecipe, pathName) => {
     strArea,
     strCategory,
     strDrink, strMeal, strAlcoholic, strDrinkThumb, strMealThumb } = detailsRecipe[0];
-  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   if (status === true) {
     setStatus(false);
     const removeFavorite = favorite.filter((item) => item.id !== id);
@@ -135,7 +135,7 @@ const clickFavorite = ({ status, setStatus, id }, detailsRecipe, pathName) => {
     const newFavorite = [...favorite, {
       id: pathName ? idDrink : idMeal,
       type: pathName ? 'bebida' : 'comida',
-      area: strArea,
+      area: pathName ? '' : strArea,
       category: strCategory,
       alcoholicOrNot: pathName ? strAlcoholic : '',
       name: pathName ? strDrink : strMeal,

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import AppContext from '../../context/AppContext';
 import shareIcon from '../../images/shareIcon.svg';
 
 export default function RecipesProgress({ match: { params: { id } } }) {
+  const history = useHistory();
   const location = useLocation();
   const pathnameBebidas = location.pathname === `/bebidas/${id}/in-progress`;
   const {
@@ -102,7 +103,13 @@ export default function RecipesProgress({ match: { params: { id } } }) {
         copied && <span style={ { color: 'red' } }>Link copiado!</span>
       }
       <button type="button" data-testid="favorite-btn">favoritar</button>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar receita</button>
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        onClick={ () => history.push('/receitas-feitas') }
+      >
+        Finalizar receita
+      </button>
     </>
   );
 }
