@@ -151,8 +151,8 @@ export default function RecipesProgress({ match: { params: { id } } }) {
       <input
         data-testid="favorite-btn"
         type="image"
-        src={ status ? blackHeartIcon : whiteHeartIcon } // shareFavorite(id)
-        alt="favorite"// clickFavorite
+        src={ status ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite"
         onClick={ () => clickFavorite({ status, setStatus, id },
           detailsRecipe, pathnameBebidas) }
       />
