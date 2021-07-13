@@ -42,6 +42,13 @@ const shareFavorites = async (favoriteID, setStatus) => {
   setStatus(false);
 };
 
+const clickCheck = (checked, setCountCheck, countCheck) => {
+  if (checked) {
+    return setCountCheck(countCheck + 1);
+  }
+  return setCountCheck(countCheck - 1);
+};
+
 export default function RecipesProgress({ match: { params: { id } } }) {
   const history = useHistory();
   const location = useLocation();
@@ -54,6 +61,10 @@ export default function RecipesProgress({ match: { params: { id } } }) {
   const MINUS_TWELVE = -12;
   const removeInProgress = location.pathname.slice(0, MINUS_TWELVE);
   const [status, setStatus] = useState();
+  const [countCheck, setCountCheck] = useState(0);
+  const NUMBER_THREE = 3;
+  const NUMBER_EIGHT = 8;
+  const limit = pathnameBebidas ? NUMBER_THREE : NUMBER_EIGHT;
 
   useEffect(() => {
     shareFavorites(id, setStatus);
@@ -76,9 +87,6 @@ export default function RecipesProgress({ match: { params: { id } } }) {
   }, [id, location, setDetailsRecipe, setFoodEndPoint, setDrinkEndpoint]);
 
   const drinkDetails = () => {
-    const NUMBER_THREE = 3;
-    const NUMBER_EIGHT = 8;
-    const limit = pathnameBebidas ? NUMBER_THREE : NUMBER_EIGHT;
     const result = [];
     for (let index = 1; index <= limit; index += 1) {
       const ingredient = detailsRecipe[0][`strIngredient${index}`];
@@ -111,6 +119,11 @@ export default function RecipesProgress({ match: { params: { id } } }) {
             <label htmlFor={ info } data-testid={ `${index}-ingredient-step` }>
               {info}
               <input
+                onClick={
+                  (
+                    { target: { checked } },
+                  ) => clickCheck(checked, setCountCheck, countCheck)
+                }
                 type="checkbox"
                 name={ info }
               />
@@ -157,12 +170,14 @@ export default function RecipesProgress({ match: { params: { id } } }) {
           detailsRecipe, pathnameBebidas) }
       />
       <button
+        disabled={ countCheck !== limit }
         type="button"
         data-testid="finish-recipe-btn"
         onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar receita
       </button>
+
     </>
   );
 }
