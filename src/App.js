@@ -15,6 +15,8 @@ import ExploreArea from './pages/Explore/ExploreArea';
 import ExploreDrinksFood from './pages/Explore/ExploreDrinksFood';
 import ExploreIngredients from './pages/Explore/ExploreIngredients';
 
+import NotFound from './pages/NotFound/NotFound';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -56,6 +58,7 @@ function App() {
 
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ RecipesFavorites } />
+      <Route exact path="/*" component={ NotFound } />
     </Switch>
   );
 }
