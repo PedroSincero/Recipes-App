@@ -4,6 +4,50 @@ import PropTypes from 'prop-types';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import AppContext from '../../context/AppContext';
 import shareIcon from '../../images/shareIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+
+const clickFavorite = ({ status, setStatus, id }, detailsRecipe, pathName) => {
+  const { idMeal,
+    idDrink,
+    strArea,
+    strCategory,
+    strDrink, strMeal, strAlcoholic, strDrinkThumb, strMealThumb } = detailsRecipe[0];
+  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  if (status === true) {
+    setStatus(false);
+    const removeFavorite = favorite.filter((item) => item.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(removeFavorite));
+  } else {
+    const newFavorite = [...favorite, {
+      id: pathName ? idDrink : idMeal,
+      type: pathName ? 'bebida' : 'comida',
+      area: pathName ? '' : strArea,
+      category: strCategory,
+      alcoholicOrNot: pathName ? strAlcoholic : '',
+      name: pathName ? strDrink : strMeal,
+      image: pathName ? strDrinkThumb : strMealThumb,
+    }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
+    setStatus(true);
+  }
+};
+
+const shareFavorites = async (favoriteID, setStatus) => {
+  const favorite = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const someFavorite = favorite.some((info) => info.id === favoriteID);
+  if (someFavorite) {
+    return setStatus(true);
+  }
+  setStatus(false);
+};
+
+const clickCheck = (checked, setCountCheck, countCheck) => {
+  if (checked) {
+    return setCountCheck(countCheck + 1);
+  }
+  return setCountCheck(countCheck - 1);
+};
 
 export default function RecipesProgress({ match: { params: { id } } }) {
   const history = useHistory();
@@ -14,8 +58,16 @@ export default function RecipesProgress({ match: { params: { id } } }) {
     setDetailsRecipe, setFoodEndPoint, setDrinkEndpoint } = useContext(AppContext);
   const [copied, setCopied] = useState(false);
   const FOUR_SECONDS = 4000;
+  const MINUS_TWELVE = -12;
+  const removeInProgress = location.pathname.slice(0, MINUS_TWELVE);
+  const [status, setStatus] = useState();
+  const [countCheck, setCountCheck] = useState(0);
+  const NUMBER_THREE = 3;
+  const NUMBER_EIGHT = 8;
+  const limit = pathnameBebidas ? NUMBER_THREE : NUMBER_EIGHT;
 
   useEffect(() => {
+    shareFavorites(id, setStatus);
     if (location.pathname === `/bebidas/${id}/in-progress`) {
       const getDetails = async (detailID) => {
         const { drinks } = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${detailID}`).then((r) => r.json());
@@ -35,9 +87,6 @@ export default function RecipesProgress({ match: { params: { id } } }) {
   }, [id, location, setDetailsRecipe, setFoodEndPoint, setDrinkEndpoint]);
 
   const drinkDetails = () => {
-    const NUMBER_THREE = 3;
-    const NUMBER_EIGHT = 8;
-    const limit = pathnameBebidas ? NUMBER_THREE : NUMBER_EIGHT;
     const result = [];
     for (let index = 1; index <= limit; index += 1) {
       const ingredient = detailsRecipe[0][`strIngredient${index}`];
@@ -70,6 +119,11 @@ export default function RecipesProgress({ match: { params: { id } } }) {
             <label htmlFor={ info } data-testid={ `${index}-ingredient-step` }>
               {info}
               <input
+                onClick={
+                  (
+                    { target: { checked } },
+                  ) => clickCheck(checked, setCountCheck, countCheck)
+                }
                 type="checkbox"
                 name={ info }
               />
@@ -80,12 +134,13 @@ export default function RecipesProgress({ match: { params: { id } } }) {
       </>
     );
   };
+
   return (
     <>
       <h1>Tela de receita em progresso</h1>
       {detailsRecipe && drinkDetails()}
       <CopyToClipboard
-        text={ `http://localhost:3000${location.pathname}` }
+        text={ `http://localhost:3000${removeInProgress}` }
         onCopy={ () => {
           setCopied(true);
           setTimeout(() => setCopied(''), FOUR_SECONDS);
@@ -106,14 +161,23 @@ export default function RecipesProgress({ match: { params: { id } } }) {
       {
         copied && <span style={ { color: 'red' } }>Link copiado!</span>
       }
-      <button type="button" data-testid="favorite-btn">favoritar</button>
+      <input
+        data-testid="favorite-btn"
+        type="image"
+        src={ status ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite"
+        onClick={ () => clickFavorite({ status, setStatus, id },
+          detailsRecipe, pathnameBebidas) }
+      />
       <button
+        disabled={ countCheck !== limit }
         type="button"
         data-testid="finish-recipe-btn"
         onClick={ () => history.push('/receitas-feitas') }
       >
         Finalizar receita
       </button>
+
     </>
   );
 }
