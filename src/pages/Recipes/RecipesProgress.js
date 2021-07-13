@@ -66,12 +66,16 @@ export default function RecipesProgress({ match: { params: { id } } }) {
         <p data-testid="instructions">{strInstructions}</p>
         <iframe src="https://youtu.be/7atZfX85nd4" data-testid="video" title=" video teste" />
         {result.map((info, index) => (
-          <li
-            key={ index }
-            data-testid="ingredient-step"
-          >
-            {info}
-          </li>
+          <div key={ index }>
+            <label htmlFor={ info } data-testid={ `${index}-ingredient-step` }>
+              {info}
+              <input
+                type="checkbox"
+                name={ info }
+              />
+            </label>
+            <br />
+          </div>
         ))}
       </>
     );
