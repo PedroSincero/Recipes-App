@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
+import './CSS/Headers.css';
 
 export default function Header({ title }) {
   const history = useHistory();
   return (
-    <header>
-      <button type="button" onClick={ () => history.push('/perfil') }>
+    <header className="buttonHeader">
+      <Button variant="danger" type="button" onClick={ () => history.push('/perfil') }>
         <img data-testid="profile-top-btn" src={ profileIcon } alt="Profile" />
-      </button>
+      </Button>
       <h3 data-testid="page-title">{title}</h3>
     </header>
   );

@@ -1,5 +1,13 @@
 .buttonHeader {
+  align-items: flex-end;
   background-color: #f2ab27;
   display: flex;
   justify-content: space-between;
 }
+
+h3 {
+  color: #732002;
+  font-family: 'Otomanopee One' , sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap') ;

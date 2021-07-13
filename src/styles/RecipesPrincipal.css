@@ -1,3 +1,13 @@
-/* button {
+li {
+  list-style-type: none;
+}
 
-} */
+img {
+  margin: 0;
+  width: 40%;
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+}

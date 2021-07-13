@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
+import { Button, Row } from 'react-bootstrap';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
 import AppContext from '../../context/AppContext';
@@ -93,18 +93,34 @@ export default function RecipesPrincipal() {
           <HeaderWithButton title="Comidas" />
           {category && filterCategory(category)}
           <Button variant="outline-secondary" size="sm" type="button" data-testid="All-category-filter" onClick={ () => setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=') }>All</Button>
-          {foodsAPI && foodsAPI.map((info, index) => (
-            <Link to={ `comidas/${info.idMeal}` } key={ index }>
-              <li key={ index } data-testid={ `${index}-recipe-card` }>
-                <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
-                <img
-                  src={ info.strMealThumb }
-                  alt={ info.strMeal }
-                  data-testid={ `${index}-card-img` }
-                />
-              </li>
-            </Link>
-          ))}
+          {/* https://react-bootstrap.netlify.app/components/cards/ */}
+          <Row xs={ 1 } md={ 2 } className="g-4">
+            {foodsAPI && foodsAPI.map((info, index) => (
+            //   <Col>
+            //   <Card>
+            //     <Card.Body>
+            //     <Card.Link>
+            //       <Card.Title>Card title</Card.Title>
+            //       <Card.Text>
+            //         This is a longer card with supporting text below as a natural
+            //         lead-in to additional content. This content is a little bit longer.
+            //       </Card.Text>
+            //       </Card.Link>
+            //     </Card.Body>
+            //   </Card>
+            // </Col>
+              <Link to={ `comidas/${info.idMeal}` } key={ index }>
+                <li key={ index } data-testid={ `${index}-recipe-card` }>
+                  <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
+                  <img
+                    src={ info.strMealThumb }
+                    alt={ info.strMeal }
+                    data-testid={ `${index}-card-img` }
+                  />
+                </li>
+              </Link>
+            ))}
+          </Row>
         </>
       );
     }
