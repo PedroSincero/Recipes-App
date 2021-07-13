@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
-import { Button, Row } from 'react-bootstrap';
+import { Button, Row, Card, Col } from 'react-bootstrap';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
 import AppContext from '../../context/AppContext';
@@ -96,29 +96,30 @@ export default function RecipesPrincipal() {
           {/* https://react-bootstrap.netlify.app/components/cards/ */}
           <Row xs={ 1 } md={ 2 } className="g-4">
             {foodsAPI && foodsAPI.map((info, index) => (
-            //   <Col>
-            //   <Card>
-            //     <Card.Body>
-            //     <Card.Link>
-            //       <Card.Title>Card title</Card.Title>
-            //       <Card.Text>
-            //         This is a longer card with supporting text below as a natural
-            //         lead-in to additional content. This content is a little bit longer.
-            //       </Card.Text>
-            //       </Card.Link>
-            //     </Card.Body>
-            //   </Card>
-            // </Col>
-              <Link to={ `comidas/${info.idMeal}` } key={ index }>
-                <li key={ index } data-testid={ `${index}-recipe-card` }>
-                  <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
-                  <img
-                    src={ info.strMealThumb }
-                    alt={ info.strMeal }
-                    data-testid={ `${index}-card-img` }
-                  />
-                </li>
-              </Link>
+              <Col className="flex-sm-wrap-reverse" key={ index }>
+
+                <Card
+                  className="card text-white bg-primary mb-3"
+                  style={ { width: '18rem' } }
+                >
+
+                  <Card.Title>Card title</Card.Title>
+                  <Link to={ `comidas/${info.idMeal}` }>
+                    <li data-testid={ `${index}-recipe-card` }>
+                      <img
+                        src={ info.strMealThumb }
+                        { ...'100px180' }
+                        alt={ info.strMeal }
+                        data-testid={ `${index}-card-img` }
+                      />
+                      <p data-testid={ `${index}-card-name` }>{info.strMeal}</p>
+                    </li>
+                  </Link>
+
+                </Card>
+
+              </Col>
+
             ))}
           </Row>
         </>

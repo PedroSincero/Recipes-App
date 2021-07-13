@@ -1,13 +1,16 @@
 li {
   list-style-type: none;
+  margin: auto;
 }
 
 img {
-  margin: 0;
-  width: 40%;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .card {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
+  margin: 5%;
+
 }
