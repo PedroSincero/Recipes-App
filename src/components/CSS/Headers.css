@@ -1,0 +1,5 @@
+.buttonHeader {
+  background-color: #f2ab27;
+  display: flex;
+  justify-content: space-between;
+}

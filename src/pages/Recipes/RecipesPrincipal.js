@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 import HeaderWithButton from '../../components/HeaderWithButton';
 import Menu from '../../components/Menu';
 import AppContext from '../../context/AppContext';
+import '../../styles/RecipesPrincipal.css';
 
 export default function RecipesPrincipal() {
   const location = useLocation();
@@ -44,14 +46,16 @@ export default function RecipesPrincipal() {
 
   const filterCategory = (param) => {
     const map = param.map(({ strCategory }, index) => (
-      <button
+      <Button
+        size="sm"
+        variant="outline-secondary"
         key={ index }
         type="button"
         data-testid={ `${strCategory}-category-filter` }
         onClick={ () => toggle(strCategory) }
       >
         { strCategory }
-      </button>
+      </Button>
     ));
     return map;
   };
@@ -88,7 +92,7 @@ export default function RecipesPrincipal() {
         <>
           <HeaderWithButton title="Comidas" />
           {category && filterCategory(category)}
-          <button type="button" data-testid="All-category-filter" onClick={ () => setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=') }>All</button>
+          <Button variant="outline-secondary" size="sm" type="button" data-testid="All-category-filter" onClick={ () => setFoodEndPoint('https://www.themealdb.com/api/json/v1/1/search.php?s=') }>All</Button>
           {foodsAPI && foodsAPI.map((info, index) => (
             <Link to={ `comidas/${info.idMeal}` } key={ index }>
               <li key={ index } data-testid={ `${index}-recipe-card` }>
@@ -107,7 +111,6 @@ export default function RecipesPrincipal() {
   };
   return (
     <>
-      <h1>Tela principal de receitas</h1>
       {nameTitle()}
       <Menu />
     </>
