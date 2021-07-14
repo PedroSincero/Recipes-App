@@ -211,7 +211,7 @@ export default function RecipesDetails({ match: { params: { id } } }) {
           data-testid="favorite-btn"
           type="image"
           src={ status ? blackHeartIcon : whiteHeartIcon } // shareFavorite(id)
-          alt="favorite"// clickFavorite
+          alt="favorite"
           onClick={ () => clickFavorite({ status, setStatus, id },
             detailsRecipe, pathnameBebidas) }
         />
