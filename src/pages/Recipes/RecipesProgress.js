@@ -59,6 +59,65 @@ const clickCheck = ({ checked, info, setIsCheked, isCheked, id },
   localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress) || {});
 };
 
+const drinkDetails = ({ pathnameBebidas,
+  detailsRecipe,
+  setCountCheck,
+  key,
+  isCheked,
+  setIsCheked,
+  limit,
+  id,
+  countCheck }) => {
+  const result = [];
+  for (let index = 1; index <= limit; index += 1) {
+    const ingredient = detailsRecipe[0][`strIngredient${index}`];
+    const measure = detailsRecipe[0][`strMeasure${index}`];
+    if (ingredient !== null) {
+      const func = () => (measure === null ? result.push(ingredient)
+        : result.push(`${ingredient} - ${measure}`));
+      func();
+    }
+  }
+  const { strDrink,
+    strMeal,
+    strDrinkThumb, strCategory, strMealThumb, strInstructions } = detailsRecipe[0];
+
+  return (
+    <>
+      <h1 data-testid="recipe-title">{pathnameBebidas ? strDrink : strMeal}</h1>
+      <p data-testid="recipe-category">
+        {pathnameBebidas ? `${strCategory} Alcoholic` : strCategory}
+      </p>
+      <img
+        src={ pathnameBebidas ? strDrinkThumb : strMealThumb }
+        alt="Thumbnail"
+        data-testid="recipe-photo"
+      />
+      <p data-testid="instructions">{strInstructions}</p>
+      <iframe src="https://youtu.be/7atZfX85nd4" data-testid="video" title=" video teste" />
+      {result.map((info, index) => (
+        <div key={ index }>
+          <label htmlFor={ info } data-testid={ `${index}-ingredient-step` }>
+            {info}
+            <input
+              onClick={
+                (
+                  { target: { checked } },
+                ) => clickCheck({ checked, info, setIsCheked, isCheked, id },
+                  setCountCheck, countCheck, pathnameBebidas)
+              }
+              type="checkbox"
+              checked={ isCheked[key][id] && isCheked[key][id][info] }
+              name={ info }
+            />
+          </label>
+          <br />
+        </div>
+      ))}
+    </>
+  );
+};
+
 export default function RecipesProgress({ match: { params: { id } } }) {
   const history = useHistory();
   const location = useLocation();
@@ -101,61 +160,20 @@ export default function RecipesProgress({ match: { params: { id } } }) {
     }
   }, [id, location, setDetailsRecipe, setFoodEndPoint, setDrinkEndpoint]);
 
-  const drinkDetails = () => {
-    const result = [];
-    for (let index = 1; index <= limit; index += 1) {
-      const ingredient = detailsRecipe[0][`strIngredient${index}`];
-      const measure = detailsRecipe[0][`strMeasure${index}`];
-      if (ingredient !== null) {
-        const func = () => (measure === null ? result.push(ingredient)
-          : result.push(`${ingredient} - ${measure}`));
-        func();
-      }
-    }
-    const { strDrink,
-      strMeal,
-      strDrinkThumb, strCategory, strMealThumb, strInstructions } = detailsRecipe[0];
-
-    return (
-      <>
-        <h1 data-testid="recipe-title">{pathnameBebidas ? strDrink : strMeal}</h1>
-        <p data-testid="recipe-category">
-          {pathnameBebidas ? `${strCategory} Alcoholic` : strCategory}
-        </p>
-        <img
-          src={ pathnameBebidas ? strDrinkThumb : strMealThumb }
-          alt="Thumbnail"
-          data-testid="recipe-photo"
-        />
-        <p data-testid="instructions">{strInstructions}</p>
-        <iframe src="https://youtu.be/7atZfX85nd4" data-testid="video" title=" video teste" />
-        {result.map((info, index) => (
-          <div key={ index }>
-            <label htmlFor={ info } data-testid={ `${index}-ingredient-step` }>
-              {info}
-              <input
-                onClick={
-                  (
-                    { target: { checked } },
-                  ) => clickCheck({ checked, info, setIsCheked, isCheked, id },
-                    setCountCheck, countCheck, pathnameBebidas)
-                }
-                type="checkbox"
-                checked={ isCheked[key][id] && isCheked[key][id][info] }
-                name={ info }
-              />
-            </label>
-            <br />
-          </div>
-        ))}
-      </>
-    );
-  };
-
   return (
     <>
       <h1>Tela de receita em progresso</h1>
-      {detailsRecipe && drinkDetails()}
+      {detailsRecipe && drinkDetails(
+        { pathnameBebidas,
+          detailsRecipe,
+          setCountCheck,
+          key,
+          isCheked,
+          setIsCheked,
+          limit,
+          id,
+          countCheck },
+      ) }
       <CopyToClipboard
         text={ `http://localhost:3000${removeInProgress}` }
         onCopy={ () => {
