@@ -108,15 +108,16 @@ export default function RecipesDetails({ match: { params: { id } } }) {
     return (
       <>
         <h1 data-testid="recipe-title">{pathnameBebidas ? strDrink : strMeal}</h1>
-        <p data-testid="recipe-category">
+        <p className="alcholic" data-testid="recipe-category">
           {pathnameBebidas ? `${strCategory} Alcoholic` : strCategory}
         </p>
         <img
+          className="drink"
           src={ pathnameBebidas ? strDrinkThumb : strMealThumb }
           alt="Thumbnail"
           data-testid="recipe-photo"
         />
-        <p data-testid="instructions">{strInstructions}</p>
+        <p className="instructions" data-testid="instructions">{strInstructions}</p>
         <iframe src="https://youtu.be/7atZfX85nd4" data-testid="video" title=" video teste" />
         {result.map((info, index) => (
           <li
@@ -133,7 +134,6 @@ export default function RecipesDetails({ match: { params: { id } } }) {
 
   return (
     <div>
-      <h1>Tela de detalhes de uma receitaa</h1>
       <div>
         {detailsRecipe && drinkDetails()}
         {/* <button type="button" data-testid="share-btn">compartilhar</button> */}

@@ -9,3 +9,24 @@
 .recommendation {
   width: 200px;
 }
+
+h1 {
+  background-color: #d94d1a;
+  color: aliceblue;
+  text-align: center;
+}
+
+.alcholic {
+  border: 2px solid #732002;
+  color: #732002;
+  text-align: center;
+}
+
+.drink {
+  margin-left: 70px;
+  width: 50%;
+}
+
+.instructions {
+  color: #d94d1a;
+}
