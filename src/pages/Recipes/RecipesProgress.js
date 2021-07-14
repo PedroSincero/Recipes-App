@@ -42,11 +42,21 @@ const shareFavorites = async (favoriteID, setStatus) => {
   setStatus(false);
 };
 
-const clickCheck = (checked, setCountCheck, countCheck) => {
+const clickCheck = ({ checked, info, setIsCheked, isCheked }, setCountCheck, countCheck, path) => {
+  const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+  const newProgress = {
+    meals: path ? {} : { ...inProgress.meals, [info]: checked },
+    cocktails: path ? { ...inProgress.cocktails, [info]: checked } : {},
+  };
+  console.log('newProgress', newProgress);
   if (checked) {
-    return setCountCheck(countCheck + 1);
+    setCountCheck(countCheck + 1);
+ // substituição > newprogress : refatoração
+  } else {
+    setCountCheck(countCheck - 1);
   }
-  return setCountCheck(countCheck - 1);
+  setIsCheked({ ...isCheked, [info]: newProgress.cocktails[info] });
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newProgress) || {});
 };
 
 export default function RecipesProgress({ match: { params: { id } } }) {
@@ -65,8 +75,11 @@ export default function RecipesProgress({ match: { params: { id } } }) {
   const NUMBER_THREE = 3;
   const NUMBER_EIGHT = 8;
   const limit = pathnameBebidas ? NUMBER_THREE : NUMBER_EIGHT;
+  const [isCheked, setIsCheked] = useState({ cocktails: {}, meals: {} });
 
   useEffect(() => {
+    const result = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    setIsCheked(result);
     shareFavorites(id, setStatus);
     if (location.pathname === `/bebidas/${id}/in-progress`) {
       const getDetails = async (detailID) => {
@@ -118,14 +131,17 @@ export default function RecipesProgress({ match: { params: { id } } }) {
           <div key={ index }>
             <label htmlFor={ info } data-testid={ `${index}-ingredient-step` }>
               {info}
+              {console.log(isCheked.cocktails[info], 'info', info)}
               <input
                 onClick={
                   (
                     { target: { checked } },
-                  ) => clickCheck(checked, setCountCheck, countCheck)
+                  ) => clickCheck({ checked, info, setIsCheked, isCheked }, setCountCheck, countCheck, pathnameBebidas)
                 }
                 type="checkbox"
+                checked={ isCheked.cocktails[info] }
                 name={ info }
+                // indeterminate={ false }
               />
             </label>
             <br />
