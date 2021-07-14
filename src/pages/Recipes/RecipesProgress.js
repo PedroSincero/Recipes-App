@@ -65,13 +65,14 @@ export default function RecipesProgress({ match: { params: { id } } }) {
   const pathnameBebidas = location.pathname === `/bebidas/${id}/in-progress`;
   const {
     detailsRecipe,
-    setDetailsRecipe, setFoodEndPoint, setDrinkEndpoint } = useContext(AppContext);
+    setDetailsRecipe,
+    setFoodEndPoint,
+    setDrinkEndpoint, countCheck, setCountCheck } = useContext(AppContext);
   const [copied, setCopied] = useState(false);
   const FOUR_SECONDS = 4000;
   const MINUS_TWELVE = -12;
   const removeInProgress = location.pathname.slice(0, MINUS_TWELVE);
   const [status, setStatus] = useState();
-  const [countCheck, setCountCheck] = useState(0);
   const NUMBER_THREE = 3;
   const NUMBER_EIGHT = 8;
   const limit = pathnameBebidas ? NUMBER_THREE : NUMBER_EIGHT;

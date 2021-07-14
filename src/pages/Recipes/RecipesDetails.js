@@ -157,7 +157,7 @@ export default function RecipesDetails({ match: { params: { id } } }) {
   const { setDetailsRecipe,
     detailsRecipe,
     setDrinkEndpoint,
-    foodsAPI, setFoodEndPoint, drinksAPI } = useContext(AppContext);
+    foodsAPI, setFoodEndPoint, drinksAPI, countCheck } = useContext(AppContext);
   useEffect(() => {
     checkDoneRecipes(id, setHaveButton);
     shareFavorites(id, setStatus);
@@ -228,7 +228,7 @@ export default function RecipesDetails({ match: { params: { id } } }) {
                   ? history.push(`/bebidas/${id}/in-progress`)
                   : history.push(`/comidas/${id}/in-progress`)) }
               >
-                Iniciar Receita
+                { countCheck !== 0 ? 'Iniciar Receita' : 'Continuar Receita'}
               </button>)
             : ''
         }
