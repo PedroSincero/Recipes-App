@@ -2,13 +2,13 @@
   background-color: #1a2426;
 }
 
-img {
-  margin: 40% 15% 5%;
+.logo {
+  margin: 20% 20% 5%;
   width: 60%;
 }
 
 .button {
-  margin-block-end: 230px;
+  margin-block-end: 180px;
 }
 
 .text {

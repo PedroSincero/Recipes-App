@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import '../styles/Explore.css';
 
 export default function BtnExpFood() {
   const [food, setFood] = useState();
@@ -18,34 +19,34 @@ export default function BtnExpFood() {
 
   const history = useHistory();
   return (
-    <>
+    <div className="d-flex flex-column gap-2 margin-div">
       <Button
-        variant="outline-primary"
+        className="btn btn-primary margin"
         size="lg"
-        block
+        type="button"
         data-testid="explore-by-ingredient"
         onClick={ () => history.push('/explorar/comidas/ingredientes') }
       >
         Por Ingredientes
       </Button>
       <Button
-        variant="outline-primary"
+        className="btn btn-primary margin"
         size="lg"
-        block
+        type="button"
         data-testid="explore-by-area"
         onClick={ () => history.push('/explorar/comidas/area') }
       >
         Por Local de Origem
       </Button>
       <Button
-        variant="outline-primary"
+        className="btn btn-primary margin"
         size="lg"
-        block
+        type="button"
         data-testid="explore-surprise"
         onClick={ () => history.push(`/comidas/${food}`) }
       >
         Me Surpreenda!
       </Button>
-    </>
+    </div>
   );
 }

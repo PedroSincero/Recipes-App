@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { ButtonGroup, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -10,7 +10,7 @@ import './Menu.css';
 export default function Menu() {
   const history = useHistory();
   return (
-    <ButtonGroup data-testid="footer" className="footer">
+    <div className="footer">
       <Button variant="danger" type="button" onClick={ () => history.push('/bebidas') }>
         <img
           data-testid="drinks-bottom-btn"
@@ -32,6 +32,6 @@ export default function Menu() {
           alt="go to foods session"
         />
       </Button>
-    </ButtonGroup>
+    </div>
   );
 }

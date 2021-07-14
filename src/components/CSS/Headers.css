@@ -5,9 +5,17 @@
   justify-content: space-between;
 }
 
+.buttonHeader2 {
+  align-items: flex-end;
+  background-color: #f2ab27;
+  display: flex;
+  justify-content: flex-start;
+}
+
 h3 {
   color: #732002;
   font-family: 'Otomanopee One' , sans-serif;
+  font-size: small;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Otomanopee+One&display=swap') ;

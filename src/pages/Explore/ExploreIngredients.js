@@ -28,7 +28,7 @@ export default function ExploreIngredients() {
 
   return (
     <>
-      <h1>Tela de explorar ingredientes</h1>
+      <Header title="Explorar Ingredientes" />
       { ingredientsList.map((ingredient, index) => {
         if (index < MAX_INGREDIENTS) {
           if (location.pathname.includes('bebidas')) {
@@ -56,7 +56,6 @@ export default function ExploreIngredients() {
         }
         return '';
       })}
-      <Header title="Explorar Ingredientes" />
       <Menu />
     </>
   );

@@ -52,7 +52,7 @@ export default function Login() {
 
   return (
     <div className="body">
-      <img src={ logo2 } alt="logo" />
+      <img className="logo" src={ logo2 } alt="logo" />
       <div className="form">
         <Form>
           <Form.Group className="mb-3" controlId="formBasicEmail">
