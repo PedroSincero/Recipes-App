@@ -1,17 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
-import AppContext from '../../context/AppContext';
 
 export default function Login() {
-  const {
-    email,
-    setEmail,
-    password,
-    setPassword,
-    user,
-    setUser,
-  } = useContext(AppContext);/*  */
+  const [user, setUser] = useState([]);
+  const [email, setEmail] = useState(false);
+  const [password, setPassword] = useState(false);
 
   function handleEmail(e) {
     const typedEmail = e;
@@ -19,7 +13,6 @@ export default function Login() {
     setUser(typedEmail);
     return setEmail(regex);
   }
-
   function handlePassword(e) {
     const typedPassword = e;
     const minLength = 6;
@@ -29,13 +22,6 @@ export default function Login() {
     }
     return setPassword(validPass);
   }
-
-  // useEffect(() => {
-  //   localStorage.setItem('mealsToken', 1);
-  //   localStorage.setItem('cocktailsToken', 1);
-  //   localStorage.setItem('user', JSON.stringify({ email: user }));
-  // }, [user]);
-
   function setLocalStorage() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
@@ -49,7 +35,6 @@ export default function Login() {
   }
 
   return (
-
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email</Form.Label>
@@ -59,9 +44,7 @@ export default function Login() {
           placeholder="Digite seu Email"
           onChange={ ({ target }) => handleEmail(target.value) }
         />
-
       </Form.Group>
-
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
         <Form.Control
@@ -70,9 +53,7 @@ export default function Login() {
           placeholder="Password"
           onChange={ ({ target }) => handlePassword(target.value) }
         />
-
       </Form.Group>
-
       <Link to="/comidas">
         <Button
           variant="primary"
