@@ -9,19 +9,20 @@ export default function Search() {
   const { setSearch, search,
     setRadio } = useContext(AppContext);
   const location = useLocation();
+  const URL = location.pathname === '/bebidas';
 
-  const routes = () => {
-    if (location.pathname === '/bebidas') {
-      return (
-        <BtnDrinks />
-      );
-    }
-    if (location.pathname === '/comidas') {
-      return (
-        <BtnFoods />
-      );
-    }
-  };
+  // const routes = () => {
+  //   if (location.pathname === '/bebidas') {
+  //     return (
+  //       <BtnDrinks />
+  //     );
+  //   }
+  //   if (location.pathname === '/comidas') {
+  //     return (
+  //       <BtnFoods />
+  //     );
+  //   }
+  // };
 
   return (
     <div>
@@ -59,7 +60,8 @@ export default function Search() {
           />
         </Form.Group>
       </Form>
-      {routes()}
+      {/* {routes()} */}
+      {URL ? <BtnDrinks /> : <BtnFoods />}
     </div>
   );
 }
