@@ -6,7 +6,7 @@ export default function Login() {
   const [user, setUser] = useState([]);
   const [email, setEmail] = useState(false);
   const [password, setPassword] = useState(false);
-
+  // *
   function handleEmail(e) {
     const typedEmail = e;
     const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+$/.test(typedEmail);
