@@ -9,9 +9,6 @@ function Provider({ children }) {
   const [radio, setRadio] = useState('');
   const [foodEndpoint, setFoodEndPoint] = useState('');
   const [drinkEndpoint, setDrinkEndpoint] = useState('');
-  const [email, setEmail] = useState(false);
-  const [password, setPassword] = useState(false);
-  const [user, setUser] = useState([]);
   const [idFood, setIdFood] = useState('');
   const [idDrinks, setIdDrinks] = useState('');
   const [category, setCategories] = useState();
@@ -118,12 +115,6 @@ function Provider({ children }) {
     handleDrink,
     foodsAPI,
     drinksAPI,
-    email,
-    setEmail,
-    password,
-    setPassword,
-    user,
-    setUser,
     idFood,
     idDrinks,
     setFoodEndPoint,
